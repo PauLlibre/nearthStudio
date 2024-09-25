@@ -9,6 +9,7 @@ export default function Nearth() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [randomDelays, setRandomDelays] = useState<number[]>([]);
   const [highlightedWord, setHighlightedWord] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const rectangles = [
     {
@@ -40,6 +41,14 @@ ofrecemos.`,
       Array.from({ length: 20 }, () => Math.random() * 0.5)
     );
     setRandomDelays(delays.flat());
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleMouseEnter = (index: number) => {
@@ -64,19 +73,19 @@ ofrecemos.`,
   }, [hoveredIndex]);
 
   return (
-    <main className="flex flex-col items-center justify-center text-center gap-8">
+    <main className="flex flex-col items-center justify-center text-center gap-8 px-4 sm:px-8">
       <Image
         src={logo}
         alt="Logo"
         width={500}
         height={500}
-        className="w-[calc(60%-100px)] max-w-full h-auto mx-auto mb-8"
+        className="w-full sm:w-[calc(60%-100px)] max-w-full h-auto mx-auto mb-8"
       />
-      <div className="flex justify-center gap-4">
+      <div className={`flex flex-col sm:flex-row justify-center ${isMobile ? 'gap-8' : 'gap-4'}`}>
         {rectangles.map((rect, index) => (
           <div
             key={index}
-            className="relative w-48 cursor-pointer"
+            className={`relative ${isMobile ? 'w-full' : 'w-48'} cursor-pointer mb-4 sm:mb-0`}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
           >
@@ -130,10 +139,10 @@ ofrecemos.`,
             transition={{ duration: 0.5 }}
             style={{ zIndex: -1 }}
           >
-            {Array.from({ length: 20 }).map((_, index) => (
+            {Array.from({ length: isMobile ? 10 : 20 }).map((_, index) => (
               <span
                 key={index}
-                className="text-black font-mono text-6xl tracking-wider absolute"
+                className="text-black font-mono text-4xl sm:text-6xl tracking-wider absolute"
                 style={{
                   top: `${Math.random() * 100}%`,
                   left: `${Math.random() * 100}%`,
