@@ -52,16 +52,20 @@ ofrecemos.`,
   }, []);
 
   const handleMouseEnter = (index: number) => {
-    setHoveredIndex(index);
+    if (!isMobile) {
+      setHoveredIndex(index);
+    }
   };
 
   const handleMouseLeave = () => {
-    setHoveredIndex(null);
-    setHighlightedWord(null);
+    if (!isMobile) {
+      setHoveredIndex(null);
+      setHighlightedWord(null);
+    }
   };
 
   useEffect(() => {
-    if (hoveredIndex !== null) {
+    if (hoveredIndex !== null && !isMobile) {
       const words = rectangles[hoveredIndex].highlightWords;
       let currentIndex = 0;
       const interval = setInterval(() => {
@@ -70,7 +74,7 @@ ofrecemos.`,
       }, 2000);
       return () => clearInterval(interval);
     }
-  }, [hoveredIndex]);
+  }, [hoveredIndex, isMobile]);
 
   return (
     <main className="flex flex-col items-center justify-center text-center gap-8 px-4 sm:px-8">
@@ -90,10 +94,10 @@ ofrecemos.`,
             onMouseLeave={handleMouseLeave}
           >
             <div
-              className="h-32 bg-yellow-300 mb-2 transition-all duration-300 ease-in-out"
+              className={`h-32 bg-yellow-300 mb-2 transition-all duration-300 ease-in-out ${isMobile ? 'h-auto' : ''}`}
               style={{
-                opacity: hoveredIndex === index ? 1 : 0.7,
-                transform: hoveredIndex === index ? "scale(1.05)" : "scale(1)",
+                opacity: hoveredIndex === index || isMobile ? 1 : 0.7,
+                transform: hoveredIndex === index && !isMobile ? "scale(1.05)" : "scale(1)",
               }}
             >
               <div className="absolute inset-0 flex items-center justify-center">
@@ -114,23 +118,30 @@ ofrecemos.`,
                 </span>
               </div>
             </div>
-            <AnimatePresence>
-              {hoveredIndex === index && (
-                <motion.div
-                  className="absolute w-full bg-white p-2 rounded shadow-lg z-10 font-mono text-xs tracking-wider"
-                  initial={{ opacity: 0, y: 0 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                  dangerouslySetInnerHTML={{ __html: rect.description }}
-                />
-              )}
-            </AnimatePresence>
+            {isMobile ? (
+              <div
+                className="bg-white p-2 rounded shadow-lg z-10 font-mono text-xs tracking-wider mt-2"
+                dangerouslySetInnerHTML={{ __html: rect.description }}
+              />
+            ) : (
+              <AnimatePresence>
+                {hoveredIndex === index && (
+                  <motion.div
+                    className="absolute w-full bg-white p-2 rounded shadow-lg z-10 font-mono text-xs tracking-wider"
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    dangerouslySetInnerHTML={{ __html: rect.description }}
+                  />
+                )}
+              </AnimatePresence>
+            )}
           </div>
         ))}
       </div>
       <AnimatePresence>
-        {highlightedWord && (
+        {highlightedWord && !isMobile && (
           <motion.div
             className="fixed inset-0 flex items-center justify-center pointer-events-none"
             initial={{ opacity: 0 }}
@@ -139,7 +150,7 @@ ofrecemos.`,
             transition={{ duration: 0.5 }}
             style={{ zIndex: -1 }}
           >
-            {Array.from({ length: isMobile ? 10 : 20 }).map((_, index) => (
+            {Array.from({ length: 20 }).map((_, index) => (
               <span
                 key={index}
                 className="text-black font-mono text-4xl sm:text-6xl tracking-wider absolute"
