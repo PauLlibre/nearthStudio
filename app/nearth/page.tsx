@@ -14,23 +14,23 @@ export default function Nearth() {
   const rectangles = [
     {
       title: "Nuestra Visión",
-      description: `Enfrentamos el <span class="highlight">individualismo</span>, la <span class="highlight">desconfianza</span> y la <span class="highlight">superficialidad</span> que predominan
+      description: `Enfrentamos el <strong class="highlight">individualismo</strong>, la <strong class="highlight">desconfianza</strong> y la <strong class="highlight">superficialidad</strong> que predominan
 en la vida moderna, fomentando una mayor profundidad y valor en las interacciones
-humanas. Nearth studio propone reconectar con la <span class="highlight">esencia</span> humana promoviendo un
-entorno que funcione como espacio de <span class="highlight">conexión</span> y <span class="highlight">exploración</span> personal.`,
+humanas. Nearth studio propone reconectar con la <strong class="highlight">esencia</strong> humana promoviendo un
+entorno que funcione como espacio de <strong class="highlight">conexión</strong> y <strong class="highlight">exploración</strong> personal.`,
       highlightWords: ["individualismo", "desconfianza", "superficialidad", "esencia", "conexión", "exploración"],
     },
     {
       title: "Quiénes Somos",
-      description: `Somos a un equipo <span class="highlight">multidisciplinario</span> compuesto por <span class="highlight">profesionales</span> de la salud,
-<span class="highlight">artistas</span> y <span class="highlight">creativxs</span> apasionadxs por <span class="highlight">transformar</span> la forma en que las personas se
+      description: `Somos a un equipo <strong class="highlight">multidisciplinario</strong> compuesto por <strong class="highlight">profesionales</strong> de la salud,
+<strong class="highlight">artistas</strong> y <strong class="highlight">creativxs</strong> apasionadxs por <strong class="highlight">transformar</strong> la forma en que las personas se
 conectan entre sí y con su entorno.`,
       highlightWords: ["multidisciplinario", "profesionales", "artistas", "creativxs", "transformar"],
     },
     {
       title: "Colabora",
-      description: `Trabajamos de manera <span class="highlight">conceptual</span> y siguiendo el <span class="highlight">método</span>
-Nearth con cada <span class="highlight">tema</span>, <span class="highlight">artista</span>, <span class="highlight">campaña</span> o <span class="highlight">evento</span> que
+      description: `Trabajamos de manera <strong class="highlight">conceptual</strong> y siguiendo el <strong class="highlight">método</strong>
+Nearth con cada <strong class="highlight">tema</strong>, <strong class="highlight">artista</strong>, <strong class="highlight">campaña</strong> o <strong class="highlight">evento</strong> que
 ofrecemos.`,
       highlightWords: ["conceptual", "método", "tema", "artista", "campaña", "evento"],
     },
@@ -124,18 +124,23 @@ ofrecemos.`,
                 dangerouslySetInnerHTML={{ __html: rect.description }}
               />
             ) : (
-              <AnimatePresence>
+                <AnimatePresence>
                 {hoveredIndex === index && (
                   <motion.div
-                    className="absolute w-full bg-white p-2 rounded shadow-lg z-10 font-mono text-xs tracking-wider"
-                    initial={{ opacity: 0, y: 0 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 0 }}
-                    transition={{ duration: 0.2 }}
-                    dangerouslySetInnerHTML={{ __html: rect.description }}
+                  className="absolute bg-white p-2 rounded shadow-lg z-10 font-mono tracking-wider"
+                  initial={{ opacity: 0, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  style={{
+                    width: '200%',
+                    left: '-50%',
+                    transform: 'translateX(-50%)',
+                  }}
+                  dangerouslySetInnerHTML={{ __html: rect.description }}
                   />
                 )}
-              </AnimatePresence>
+                </AnimatePresence>
             )}
           </div>
         ))}
