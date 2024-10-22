@@ -77,7 +77,7 @@ ofrecemos.`,
   }, [hoveredIndex, isMobile]);
 
   return (
-    <main className="flex flex-col items-center justify-center text-center gap-8 px-4 sm:px-8">
+    <main className="flex flex-col items-center justify-center text-center gap-8 px-4 sm:px-8 z-10">
       <Image
         src={logo}
         alt="Logo"
@@ -85,7 +85,7 @@ ofrecemos.`,
         height={500}
         className="w-full sm:w-[calc(60%-100px)] max-w-full h-auto mx-auto mb-8"
       />
-      <div className={`flex flex-col sm:flex-row justify-center ${isMobile ? 'gap-8' : 'gap-4'}`}>
+      <div className={`flex flex-col sm:flex-row justify-center ${isMobile ? 'gap-8' : 'gap-4'} z-10`}>
         {rectangles.map((rect, index) => (
           <div
             key={index}
@@ -148,7 +148,7 @@ ofrecemos.`,
             animate={{ opacity: 0.1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            style={{ zIndex: -1 }}
+            style={{ zIndex: 0 }}
           >
             {Array.from({ length: 20 }).map((_, index) => (
               <span
