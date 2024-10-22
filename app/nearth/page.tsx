@@ -101,7 +101,7 @@ ofrecemos.`,
               }}
             >
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-black font-mono text-sm tracking-wider">
+                <span className="text-black font-mono tracking-wider">
                   {rect.title.split("").map((char, i) => (
                     <span
                       key={i}
