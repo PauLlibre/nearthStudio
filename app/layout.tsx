@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Nearth Studio',
-  description: 'Where art meets science',
+  description: 'Where art meets connection',
 }
 
 export default function RootLayout({
