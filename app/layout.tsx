@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-y-scroll">
       <body className={inter.className}>
         <div className="grid grid-rows-[auto_1fr_auto] min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-white text-black">
           <Navbar />
@@ -26,5 +26,6 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  )
+  );
 }
+
